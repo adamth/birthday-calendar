@@ -1,6 +1,7 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from bd_calendar.models import ImportantDate
+from .email import send_test_email
 
 from .forms import DateForm
 # Create your views here.
@@ -13,6 +14,7 @@ def index(request):
         if form.is_valid():
             new_date = ImportantDate(**form.cleaned_data)
             new_date.save()
+            send_test_email()
             return HttpResponseRedirect('index')
             # return render(request, template, {'form': form})
         else:
